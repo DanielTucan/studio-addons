@@ -1,17 +1,22 @@
 {
-    "name": "botman/studio-addons",
+    "name": "danieltucan/botman-studio-addons",
     "license": "MIT",
-    "description": "BotMan Studio specific addons.",
+    "description": "BotMan Studio specific addons forked by DanielTucan.",
     "keywords": [
         "Bot",
         "BotMan",
-        "Studio"
+        "Studio",
+        "Addons"
     ],
-    "homepage": "http://github.com/botman/studio-addons",
+    "homepage": "http://github.com/danieltucan/studio-addons",
     "authors": [
         {
             "name": "Marcel Pociot",
             "email": "m.pociot@gmail.com"
+        },
+        {
+            "name": "Daniel Tucan",
+            "email": "daniel.tucan@creative-ones.com"
         }
     ],
     "require": {
