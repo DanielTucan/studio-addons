@@ -247,7 +247,7 @@ class BotManTester
         $reply = $this->getReply();
 
         if (is_callable($message)) {        
-            $result = $message($reply->getText());                            
+            $result = $message($reply->getText(), $reply);
             PHPUnit::assertTrue($result);           
         } else {    
             if ($reply instanceof OutgoingMessage) {
@@ -332,17 +332,23 @@ class BotManTester
     }
 
     /**
-     * @param null $text
+     * @param null|string|callable $text
      * @return $this
      */
-    public function assertQuestion($text = null)
+    public function assertQuestion(string|callable $text = null)
     {
         /** @var Question $question */
         $question = $this->getReply();
-        PHPUnit::assertInstanceOf(Question::class, $question);
 
-        if (! is_null($text)) {
-            PHPUnit::assertSame($text, $question->getText());
+        if (is_callable($text)) {        
+            $result = $text($question->getText(), $question);                            
+            PHPUnit::assertTrue($result);
+        } else {
+            PHPUnit::assertInstanceOf(Question::class, $question);
+
+            if (! is_null($text)) {
+                PHPUnit::assertSame($text, $question->getText());
+            }
         }
 
         return $this;
