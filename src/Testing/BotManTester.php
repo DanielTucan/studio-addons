@@ -239,17 +239,23 @@ class BotManTester
     }
 
     /**
-     * @param $message
+     * @param string|callable $message
      * @return $this
      */
-    public function assertReply($message)
+    public function assertReply(string|callable $message)
     {
         $reply = $this->getReply();
-        if ($reply instanceof OutgoingMessage) {
-            PHPUnit::assertSame($message, $reply->getText());
-        } else {
-            PHPUnit::assertEquals($message, $reply);
-        }
+
+        if (is_callable($message)) {        
+            $result = $message($reply->getText());                            
+            PHPUnit::assertTrue($result);           
+        } else {    
+            if ($reply instanceof OutgoingMessage) {
+                PHPUnit::assertSame($message, $reply->getText());
+            } else {
+                PHPUnit::assertEquals($message, $reply);
+            }
+        }    
 
         return $this;
     }
